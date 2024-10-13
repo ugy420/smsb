@@ -9,6 +9,7 @@ import Signup from './pages/SignUp';
 import NotFound from './pages/NotFound';
 import GroundList from './components/Groundlist';
 import Events from './pages/Events';
+import AHome from './pages/AdminHome';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/ahome" element={<AHome />} />
       </Routes>
     </Router>
   );

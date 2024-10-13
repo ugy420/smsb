@@ -76,7 +76,7 @@ const Login = () => {
                             <label className="block text-sm font-semibold mb-1" htmlFor="password">Password</label>
                             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400" placeholder="password" required />
                         </div>
-                        <button type="submit" className="mt-4 w-full bg-pink-500 text-white p-2 rounded hover:bg-pink-600 transition duration-300">Sign In</button>
+                        <button type="submit"className="mt-4 w-full bg-pink-500 text-white p-2 rounded hover:bg-pink-600 transition duration-300">Sign In</button>
                         <p className="mt-4 text-center text-sm">Forgot Your Password?</p>
                         <div className="flex justify-between mt-4">
                             <button className="flex-1 mx-1 bg-white border border-gray-300 rounded p-2 hover:bg-gray-100 transition duration-300">Continue With Google</button>
