@@ -1,9 +1,11 @@
-// src/pages/Home.js
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link for internal navigation
 import './Home.css'; // Make sure you have styles for Home
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
 import Events from './Events';
+import football from '../assets/foot.jpg';
+import volleyball from '../assets/vo.jpg';
+import basketball from '../assets/bas.jpg';
 
 const Home = () => {
   return (
@@ -14,13 +16,13 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Football Ground Card */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-          <img src="football-ground-image-url" alt="Football Ground" className="w-full h-48 object-cover" />
+          <img src={football} alt="Football Ground" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h5 className="text-xl font-semibold text-gray-800 mb-2">Football Ground</h5>
             <p className="text-gray-600 mb-4">Enjoy playing football in our well-maintained ground.</p>
             <Link
-              to="/book" // Use Link for internal navigation
-              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out:"
+              to="/sportsclub" // Redirect to the SportsClub page
+              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
             >
               View
             </Link>
@@ -29,12 +31,12 @@ const Home = () => {
 
         {/* Volleyball Court Card */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-          <img src="volleyball-court-image-url" alt="Volleyball Court" className="w-full h-48 object-cover" />
+          <img src={volleyball} alt="Volleyball Court" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h5 className="text-xl font-semibold text-gray-800 mb-2">Volleyball Court</h5>
             <p className="text-gray-600 mb-4">Join us for an exciting game of volleyball.</p>
             <Link
-              to="/book" // Use Link for internal navigation
+              to="/sportsclub" // Redirect to the SportsClub page
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
             >
               View
@@ -44,12 +46,12 @@ const Home = () => {
 
         {/* Basketball Court Card */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-          <img src="basketball-court-image-url" alt="Basketball Court" className="w-full h-48 object-cover" />
+          <img src={basketball} alt="Basketball Court" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h5 className="text-xl font-semibold text-gray-800 mb-2">Basketball Court</h5>
             <p className="text-gray-600 mb-4">Play basketball in our state-of-the-art facility.</p>
             <Link
-              to="/book" // Use Link for internal navigation
+              to="/sportsclub" // Redirect to the SportsClub page
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
             >
               View
