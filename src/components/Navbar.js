@@ -7,6 +7,7 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-lg p-10 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white text-2xl font-bold">
+          <img src=''/>
           Sports Ground Booking
         </div>
         <div className="space-x-10">
