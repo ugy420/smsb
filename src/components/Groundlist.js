@@ -1,5 +1,8 @@
 import React from 'react';
 import GroundCard from './GroundCard';
+import football from '../assets/foot.jpg';
+import volleyball from '../assets/vo.jpg';
+import basketball from '../assets/bas.jpg';
 
 const GroundList = () => {
   const grounds = [
@@ -7,19 +10,19 @@ const GroundList = () => {
       id: 1,
       name: 'Football Ground',
       description: 'Enjoy playing football in our well-maintained ground.',
-      image: '',
+      image: {football},
     },
     {
       id: 2,
       name: 'Volleyball Court',
       description: 'Join us for an exciting game of volleyball.',
-      image: 'volleyball-court-image-url',
+      image: {volleyball},
     },
     {
       id: 3,
       name: 'Basketball Court',
       description: 'Play basketball in our state-of-the-art facility.',
-      image: 'basketball-court-image-url',
+      image: {basketball},
     },
   ];
 
