@@ -11,7 +11,7 @@ const Navbar = () => {
           Sports Ground Booking
         </div>
         <div className="space-x-10">
-          <Link to="/" className="text-white hover:text-blue-400 transition duration-300">
+          <Link to="/Home" className="text-white hover:text-blue-400 transition duration-300">
             Home
           </Link>
           <Link to="/ground-list" className="text-white hover:text-blue-400 transition duration-300">

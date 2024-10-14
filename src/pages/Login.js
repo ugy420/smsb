@@ -13,11 +13,11 @@ const Login = ({setIsLoggedIn}) => {
         if (email === "admin@email.com" && password === "admin") {
             navigate('/ahome');
             setIsLoggedIn(true);
-        } 
+        }
         else if (email === "user@email.com" && password === "password") {
             navigate('/home');
             setIsLoggedIn(true);
-        } 
+        }
         else {
             setError("Invalid email or password. Please try again.");
         }
