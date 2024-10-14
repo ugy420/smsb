@@ -29,7 +29,6 @@ const AHome = () => {
             icon={bookingsIcon}
             title="Bookings"
             number="664"
-            date="May 23 - June 01 (2017)"
           />
         </div>
       </div>

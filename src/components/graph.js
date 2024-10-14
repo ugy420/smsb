@@ -22,6 +22,7 @@ const xLabels = [
 
 export default function StackedBarChart() {
   return (
+    <div className="bg-white rounded-lg p-6 shadow-md flex items-center space-x-4 w-full">
     <BarChart
       width={750}
       height={500}
@@ -32,5 +33,6 @@ export default function StackedBarChart() {
       ]}
       xAxis={[{ data: xLabels, scaleType: 'band' }]}
     />
+    </div>
   );
 }
