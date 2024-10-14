@@ -1,4 +1,3 @@
-// src/pages/Signup.js
 import React from 'react';
 
 const Signup = () => {
