@@ -49,12 +49,12 @@ const Events = () => {
               <p className="text-gray-600 mt-4">{event.description}</p>
               {/* Center the button */}
               <div className="flex justify-center mt-6">
-              <Link
+              {/* <Link
               to="/sportsclub" // Redirect to the SportsClub page
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
               >
               View
-            </Link>
+            </Link> */}
               </div>
             </div>
           </div>

@@ -12,6 +12,8 @@ import Events from './pages/Events';
 import AHome from './pages/AdminHome';
 import SportsClub from './pages/basketball';
 import AccountPage from './components/Account';
+import Members from './pages/members';
+import Grounds from './pages/grounds';
 
 
 const App = () => {
@@ -31,6 +33,8 @@ const App = () => {
         <Route path="/sportsclub" element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/ahome" element={isLoggedIn ? <AHome /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/home" element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/members" element={isLoggedIn ? <Members /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/grounds" element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/account" element={<AccountPage />} />
       </Routes>
     </Router>

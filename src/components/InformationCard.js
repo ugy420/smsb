@@ -1,8 +1,11 @@
 import React from 'react';
 
-const InfoCard = ({ icon, title, number, numberTextColor, BgColor }) => {
+const InfoCard = ({ icon, title, number, numberTextColor, BgColor, onClick }) => {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-md flex justify-between items-center w-full md:w-72">
+    <div
+      className="bg-white rounded-lg p-6 shadow-md flex justify-between items-center w-full md:w-72 cursor-pointer" 
+      onClick={onClick} // Add onClick handler
+    >
       <div>
         <h3 className="text-xl font-light">{title}</h3>
         <p className={`text-3xl font-bold ${numberTextColor} p-2 rounded-lg`}>{number}</p>

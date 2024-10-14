@@ -30,6 +30,9 @@ const Navbar = () => {
           <Link to="/account" className="text-white hover:text-blue-200 transition duration-300 font-medium">
             Account
           </Link>
+          <Link to="/" className="text-white hover:text-blue-200 transition duration-300 font-medium">
+            Logout
+          </Link>
         </div>
       </div>
     </nav>

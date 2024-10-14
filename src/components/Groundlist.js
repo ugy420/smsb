@@ -10,19 +10,19 @@ const GroundList = () => {
       id: 1,
       name: 'Football Ground',
       description: 'Enjoy playing football in our well-maintained ground.',
-      image: {football},
+      image: football,
     },
     {
       id: 2,
       name: 'Volleyball Court',
       description: 'Join us for an exciting game of volleyball.',
-      image: {volleyball},
+      image: volleyball,
     },
     {
       id: 3,
       name: 'Basketball Court',
       description: 'Play basketball in our state-of-the-art facility.',
-      image: {basketball},
+      image: basketball,
     },
   ];
 

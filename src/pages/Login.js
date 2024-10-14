@@ -76,7 +76,7 @@ const Login = ({setIsLoggedIn}) => {
                     </div>
                     <p className="mt-4 text-center text-sm">
                         Are You A Venue Administrator?{' '}
-                        <a href="/signin" className="text-red-600 underline">
+                        <a href="/signup" className="text-red-600 underline">
                             Sign In Here.
                         </a>
                     </p>

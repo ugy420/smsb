@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link for internal navigation
-import './Home.css'; // Make sure you have styles for Home
-import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
+import { Link } from 'react-router-dom';
+import './Home.css'; 
+import 'tailwindcss/tailwind.css';
 import Events from './Events';
 import football from '../assets/foot.jpg';
 import volleyball from '../assets/vo.jpg';
