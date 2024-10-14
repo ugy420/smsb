@@ -23,7 +23,7 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-gradient-to-r from-blue-500 to-blue-300 rounded-lg shadow-lg">
+    <div className="max-w-lg mx-auto mt-36 p-6 bg-gradient-to-r from-blue-500 to-blue-300 rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold text-white text-center mb-6">Book Your Ground</h2>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
         <div className="mb-4">
