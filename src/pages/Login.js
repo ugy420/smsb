@@ -52,16 +52,16 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-16">
             <div className="bg-white p-10 rounded-lg shadow-lg w-96">
-                <h2 className="text-3xl font-bold text-center text-red-600 mb-6">SPORTS GROUND BOOKING</h2>
+                <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">SPORTS GROUND BOOKING</h2>
 
                 {/* Role Selection Buttons */}
                 {isAdmin === null ? (
                     <div className="mt-4">
                         <h3 className="text-lg font-semibold text-center mb-4">Select Your Role</h3>
                         <div className="flex justify-around">
-                            <button onClick={handleLoginAsAdmin} className="flex-1 mx-2 p-3 rounded bg-red-600 text-white hover:bg-red-700 transition duration-300">Login as Admin</button>
+                            <button onClick={handleLoginAsAdmin} className="flex-1 mx-2 p-3 rounded bg-orange-600 text-white hover:bg-orange-700 transition duration-300">Login as Admin</button>
                             <button onClick={handleLoginAsUser} className="flex-1 mx-2 p-3 rounded bg-green-600 text-white hover:bg-green-700 transition duration-300">Login as User</button>
                         </div>
                     </div>
