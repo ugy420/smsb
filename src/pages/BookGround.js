@@ -6,6 +6,7 @@ const BookingForm = () => {
     name: '',
     email: '',
     phone: '',
+    
     date: '',
     time: '',
     groundType: '',
