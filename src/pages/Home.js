@@ -21,7 +21,7 @@ const Home = () => {
             <h5 className="text-xl font-semibold text-gray-800 mb-2">Football Ground</h5>
             <p className="text-gray-600 mb-4">Enjoy playing football in our well-maintained ground.</p>
             <Link
-              to="/sportsclub" // Redirect to the SportsClub page
+              to="/sportsclub"
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
             >
               View
