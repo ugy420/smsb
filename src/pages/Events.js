@@ -1,5 +1,8 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
+import football from '../assets/foot.jpg';
+import volleyball from '../assets/vo.jpg';
+import basketball from '../assets/bas.jpg';
 
 const eventsData = [
   {
@@ -8,7 +11,7 @@ const eventsData = [
     date: '2024-10-20',
     time: '10:00 AM',
     description: 'Join us for the annual football championship!',
-    image: 'https://example.com/football.jpg', // Replace with your actual image URL
+    image: football,
   },
   {
     id: 2,
@@ -16,7 +19,7 @@ const eventsData = [
     date: '2024-10-25',
     time: '2:00 PM',
     description: 'Compete in our exciting volleyball tournament.',
-    image: 'https://example.com/volleyball.jpg', // Replace with your actual image URL
+    image: volleyball, // Replace with your actual image URL
   },
   {
     id: 3,
@@ -24,7 +27,7 @@ const eventsData = [
     date: '2024-11-01',
     time: '5:00 PM',
     description: 'Participate in the basketball league this season.',
-    image: 'https://example.com/basketball.jpg', // Replace with your actual image URL
+    image: basketball, // Replace with your actual image URL
   },
 ];
 
