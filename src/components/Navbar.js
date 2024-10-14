@@ -6,12 +6,10 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-lg p-6 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo and Title */}
         <div className="flex items-center space-x-4">
           <span className="text-white text-2xl font-bold">Sports Ground Booking</span>
         </div>
 
-        {/* Navigation Links */}
         <div className="space-x-10">
           <Link to="/Home" className="text-white hover:text-blue-400 transition duration-300">
             Home

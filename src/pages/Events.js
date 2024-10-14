@@ -1,5 +1,6 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
+import { Link } from 'react-router-dom';
 import football from '../assets/foot.jpg';
 import volleyball from '../assets/vo.jpg';
 import basketball from '../assets/bas.jpg';
@@ -48,9 +49,12 @@ const Events = () => {
               <p className="text-gray-600 mt-4">{event.description}</p>
               {/* Center the button */}
               <div className="flex justify-center mt-6">
-                <a href="/book" className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors duration-300">
-                  View
-                </a>
+              <Link
+              to="/sportsclub" // Redirect to the SportsClub page
+              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
+              >
+              View
+            </Link>
               </div>
             </div>
           </div>

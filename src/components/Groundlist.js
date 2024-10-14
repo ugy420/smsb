@@ -1,4 +1,3 @@
-// src/components/GroundList.js
 import React from 'react';
 import GroundCard from './GroundCard';
 
@@ -8,7 +7,7 @@ const GroundList = () => {
       id: 1,
       name: 'Football Ground',
       description: 'Enjoy playing football in our well-maintained ground.',
-      image: 'football-ground-image-url',
+      image: '',
     },
     {
       id: 2,
