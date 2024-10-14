@@ -22,12 +22,6 @@ const Navbar = () => {
           <Link to="/events" className="text-white hover:text-blue-400 transition duration-300">
             Events
           </Link>
-          <Link to="/login" className="text-white hover:text-blue-400 transition duration-300">
-            Login
-          </Link>
-          <Link to="/signup" className="text-white hover:text-blue-400 transition duration-300">
-            Sign Up
-          </Link>
         </div>
       </div>
     </nav>
