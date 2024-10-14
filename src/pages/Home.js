@@ -60,7 +60,7 @@ const Home = () => {
 
       {/* Title Bar Section */}
       <div className="mt-10">
-        <div className="bg-blue-600 p-10 text-center text-white font-bold text-lg rounded">
+        <div className="px-10 py-4 bg-blue-500 text-white rounded-lg text-lg font-semibold">
           Upcoming Events
         </div>
       </div>
