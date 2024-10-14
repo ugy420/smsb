@@ -11,6 +11,8 @@ import GroundList from './components/Groundlist';
 import Events from './pages/Events';
 import AHome from './pages/AdminHome';
 import SportsClub from './pages/basketball';
+import AccountPage from './components/Account';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +31,7 @@ const App = () => {
         <Route path="/sportsclub" element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/ahome" element={isLoggedIn ? <AHome /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/home" element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
     </Router>
   );
