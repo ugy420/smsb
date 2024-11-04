@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = ({setIsLoggedIn}) => {
     const [email, setEmail] = useState('');
@@ -9,18 +10,10 @@ const Login = ({setIsLoggedIn}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (email === "admin@email.com" && password === "admin") {
-            navigate('/ahome');
-            setIsLoggedIn(true);
-        }
-        else if (email === "user@email.com" && password === "password") {
-            navigate('/home');
-            setIsLoggedIn(true);
-        }
-        else {
-            setError("Invalid email or password. Please try again.");
-        }
+        axios.post('http://localhost:3001/login', {email, password})
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+        setIsLoggedIn(true);
     };
 
     return (
