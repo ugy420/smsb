@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = ({setIsLoggedIn}) => {
     const [email, setEmail] = useState('');
@@ -7,19 +8,18 @@ const Login = ({setIsLoggedIn}) => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (email === "admin@email.com" && password === "admin") {
-            navigate('/ahome');
-            setIsLoggedIn(true);
+        try{
+            const res = await axios.post('http://localhost:3001/login', {email, password});
+            console.log(res.data);
+            if(res.data.message === "Login Successfully") {
+                setIsLoggedIn(true);
+                navigate('/home');
+            }
         }
-        else if (email === "user@email.com" && password === "password") {
-            navigate('/home');
-            setIsLoggedIn(true);
-        }
-        else {
-            setError("Invalid email or password. Please try again.");
+        catch (error){
+            console.log("Login failed", error);
         }
     };
 
@@ -65,19 +65,10 @@ const Login = ({setIsLoggedIn}) => {
                     >
                         Sign In
                     </button>
-                    <p className="mt-4 text-center text-sm">Forgot Your Password?</p>
-                    <div className="flex justify-between mt-4">
-                        <button className="flex-1 mx-1 bg-white border border-gray-300 rounded p-2 hover:bg-gray-100 transition duration-300">
-                            Continue With Google
-                        </button>
-                        <button className="flex-1 mx-1 bg-white border border-gray-300 rounded p-2 hover:bg-gray-100 transition duration-300">
-                            Continue With Microsoft
-                        </button>
-                    </div>
                     <p className="mt-4 text-center text-sm">
-                        Are You A Venue Administrator?{' '}
+                        Not a member?{' '}
                         <a href="/signup" className="text-red-600 underline">
-                            Sign In Here.
+                            Sign Up.
                         </a>
                     </p>
                 </form>

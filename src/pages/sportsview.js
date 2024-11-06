@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import img from '../assets/event_bas.jpg';
 
 const SportsClub = () => {
+  const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState('2024-10-17');
+  const [groundDetails, setGroundDetails] = useState({});
   const [groundAvailability, setGroundAvailability] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const navigate = useNavigate();
 
-  // Mock data: availability for different dates
+  // Fetch ground details from the API using the ID
+  useEffect(() => {
+    fetch(`http://localhost:3001/api/getGround/${id}`)
+      .then((response) => response.json())
+      .then((data) => { 
+        setGroundDetails(data[0]);
+      })
+      .catch((error) => console.error('Error fetching ground data:', error));
+  }, [id]);
+
   const availabilityData = {
     '2024-10-17': [
       { time: '6 PM - 7 PM', user: 'Khenrab', mobile: '17401566' },
@@ -24,43 +35,48 @@ const SportsClub = () => {
     ],
   };
 
-  // Update availability based on selected date
   useEffect(() => {
     setGroundAvailability(availabilityData[selectedDate] || []);
   }, [selectedDate]);
 
-  // Function to handle navigation to the booking form
   const handleBookNow = () => {
-    navigate('/book'); // Navigate to the BookingForm component
+    navigate('/book');
   };
 
   return (
     <div className="bg-gray-100 mt-32 min-h-screen flex flex-col items-center">
-      {/* Club Image */}
-      <div className="w-full max-w-4xl overflow-hidden rounded-lg shadow-lg">
-        <img
-          src={img} // Replace with actual image URL
-          alt="CST Sports"
-          className="w-full h-96 object-cover"
-        />
-      </div>
+      {/* Display ground details if available */}
+      {groundDetails && groundDetails.name ? (
+        <>
+          {/* Ground Image */}
+          <div className="w-full max-w-4xl overflow-hidden rounded-lg shadow-lg">
+            <img
+              src={img}
+              alt={groundDetails.name}
+              className="w-full h-96 object-cover"
+            />
+          </div>
 
-      {/* Club Information */}
-      <div className="mt-6 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-4xl font-bold text-gray-800">Ground_Booking</h1>
-        <p className="text-lg text-gray-600 mt-2">College of Science And Technology</p>
-        <p className="text-gray-600">
-          Get ready to kick off! Join us for our annual football tournament featuring teams from across the region.
-        </p>
-      </div>
+          {/* Ground Information */}
+          <div className="mt-6 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
+            <h1 className="text-4xl font-bold text-gray-800">{groundDetails.name}</h1>
+            <p className="text-lg text-gray-600 mt-2">{groundDetails.name}</p>
+            <p className="text-gray-600">
+              {groundDetails.description || 'Get ready to kick off! Join us for our annual tournament.'}
+            </p>
+          </div>
 
-      {/* Description */}
-      <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-3xl font-semibold text-gray-700">Description</h2>
-        <p className="text-gray-600 mt-2">
-          Bounce into action! Join us for a night of basketball where players of all ages can come together for friendly matches and competitions. 
-        </p>
-      </div>
+          {/* Description */}
+          <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-3xl font-semibold text-gray-700">Description</h2>
+            <p className="text-gray-600 mt-2">
+              {groundDetails.longDescription || 'Enjoy a day of sports with teams from across the region.'}
+            </p>
+          </div>
+        </>
+      ) : (
+        <div className="mt-8 text-center">Loading ground details...</div>
+      )}
 
       {/* Check Ground Availability */}
       <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
@@ -108,7 +124,7 @@ const SportsClub = () => {
       {/* Booking Contact */}
       <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
         <button
-          onClick={handleBookNow} // Trigger navigation when button is clicked
+          onClick={handleBookNow}
           className="mt-4 bg-red-500 text-white px-6 py-3 rounded hover:bg-red-600 transition"
         >
           Book Now
