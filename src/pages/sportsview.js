@@ -5,7 +5,7 @@ import img from '../assets/event_bas.jpg';
 
 const SportsClub = () => {
   const { id } = useParams();
-  const [selectedDate, setSelectedDate] = useState('2024-10-17');
+  const [selectedDate, setSelectedDate] = useState("");
   const [groundDetails, setGroundDetails] = useState({});
   const [groundAvailability, setGroundAvailability] = useState([]);
   const navigate = useNavigate();
@@ -20,24 +20,21 @@ const SportsClub = () => {
       .catch((error) => console.error('Error fetching ground data:', error));
   }, [id]);
 
-  const availabilityData = {
-    '2024-10-17': [
-      { time: '6 PM - 7 PM', user: 'Khenrab', mobile: '17401566' },
-      { time: '7 PM - 8 PM', user: 'Khenrab', mobile: '17401566' },
-    ],
-    '2024-10-18': [
-      { time: '5 PM - 6 PM', user: 'Dorji', mobile: '17234567' },
-      { time: '6 PM - 7 PM', user: 'Tashi', mobile: '17654321' },
-    ],
-    '2024-10-19': [
-      { time: '4 PM - 5 PM', user: 'Phuntsho', mobile: '17123456' },
-      { time: '5 PM - 6 PM', user: 'Wangchuk', mobile: '17987654' },
-    ],
-  };
-
   useEffect(() => {
-    setGroundAvailability(availabilityData[selectedDate] || []);
-  }, [selectedDate]);
+    if (selectedDate) {
+      fetch(`http://localhost:3001/api/getBookingsbd/${id}?date=${selectedDate}`)
+        .then((response) => response.json())  // Ensure we parse the response to JSON
+        .then((data) => {
+          if (data) {
+            setGroundAvailability(data);
+          } else {
+            console.log('No data available for this date');
+          }
+        })
+        .catch((error) => console.log('Error fetching availability data', error));
+    }
+  }, [selectedDate, id]);
+  
 
   const handleBookNow = () => {
     navigate('/book');
@@ -102,11 +99,13 @@ const SportsClub = () => {
             </thead>
             <tbody>
               {groundAvailability.length > 0 ? (
-                groundAvailability.map((slot, index) => (
-                  <tr key={index} className="border-b">
-                    <td className="py-3 px-4">{slot.time}</td>
-                    <td className="py-3 px-4">{slot.user}</td>
-                    <td className="py-3 px-4">{slot.mobile}</td>
+                groundAvailability.map((slot) => (
+                  <tr key={`${slot.user_id}`} className="border-b">
+                    <td className="py-3 px-4">{slot.booking_time}</td> {/* Display booking_time */}
+                    <td className="py-3 px-4">{slot.name}</td>
+                    <td className="py-3 px-4">
+                      {slot.phone} {/* Format and display booking_date */}
+                    </td>
                   </tr>
                 ))
               ) : (
