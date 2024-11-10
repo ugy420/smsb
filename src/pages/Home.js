@@ -5,26 +5,36 @@ import 'tailwindcss/tailwind.css';
 import Events from './Events';
 import About from '../components/About';
 import football from '../assets/foot.jpg';
-import volleyball from '../assets/vo.jpg';
-import basketball from '../assets/bas.jpg';
+import bb from '../assets/bas.jpg';
 
 const Home = () => {
   const [grounds, setGrounds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/allGround')
-      .then((response) => response.json())
-      .then((data) => setGrounds(data))
-      .catch((error) => console.error('Error fetching ground data:', error));
-  }, []);
+    const fetchGrounds = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/allGround');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        const formatGrounds = data.map((ground) => {
+          const image = require(`../assets/${ground.img}`);
 
-  // Map images to specific ground types (based on name or id)
-  const groundImages = {
-    football: football,
-    volleyball: volleyball,
-    basketball: basketball,
-  };
+          return {
+            ...ground,
+            image,
+          };
+        });
+        setGrounds(formatGrounds);
+      } catch (error) {
+        console.error('Error fetching ground data:', error);
+      }
+    };
+
+    fetchGrounds();
+  }, []);
 
   const itemsPerPage = 3;
 
@@ -48,7 +58,7 @@ const Home = () => {
           {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
             <div key={ground.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
               <img
-                src={groundImages[ground.name.toLowerCase()] || football} // Fallback to football image if no match found
+                src={ground.image || bb}
                 alt={`${ground.name} Ground`}
                 className="w-full h-48 object-cover"
               />
@@ -100,7 +110,7 @@ const Home = () => {
 
       {/* About Us Section */}
       <section className="bg-blue-100 p-6 rounded-lg shadow-md mt-10">
-        <About/>
+        <About />
       </section>
 
       {/* Footer */}

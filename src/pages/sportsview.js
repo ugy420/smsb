@@ -30,7 +30,7 @@ const SportsClub = () => {
         .catch((error) => console.log('Error fetching availability data', error));
     }
   };
-
+  
   useEffect(() => {
     fetchAvailability();
   }, [selectedDate]);
