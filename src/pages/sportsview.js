@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { useParams } from 'react-router-dom';
-import img from '../assets/event_bas.jpg';
 import BookingForm from './BookGround';
+import fallbackImage from '../assets/bas.jpg'; // Add a default image
 
 const SportsClub = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ const SportsClub = () => {
         .catch((error) => console.log('Error fetching availability data', error));
     }
   };
-  
+
   useEffect(() => {
     fetchAvailability();
   }, [selectedDate]);
@@ -49,7 +49,12 @@ const SportsClub = () => {
       {groundDetails && groundDetails.name ? (
         <>
           <div className="w-full max-w-4xl overflow-hidden rounded-lg shadow-lg">
-            <img src={img} alt={groundDetails.name} className="w-full h-96 object-cover" />
+            <img
+              src={groundDetails.img ? require(`../assets/${groundDetails.img}`) : fallbackImage}
+              alt={groundDetails.name}
+              onError={(e) => { e.target.src = fallbackImage; }} // Fallback to default image if error occurs
+              className="w-full h-96 object-cover"
+            />
           </div>
 
           <div className="mt-6 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">

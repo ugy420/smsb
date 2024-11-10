@@ -10,7 +10,17 @@ const GroundList = () => {
   useEffect(() => {
     fetch('http://localhost:3001/api/allGround')
       .then((response) => response.json())
-      .then((data) => setGrounds(data))
+      .then((data) => {
+        const formatGrounds = data.map((ground) => {
+          const image = require(`../assets/${ground.img}`);
+
+          return {
+            ...ground,
+            image,
+          };
+        });
+        setGrounds(formatGrounds);
+      })
       .catch((error) => console.error('Error fetching ground data:', error));
   }, []);
 
@@ -30,7 +40,7 @@ const GroundList = () => {
             key={ground.id}
             ground={{
               ...ground,
-              image: groundImages[ground.name.toLowerCase()] || football,
+              image: ground.image || football,
             }}
           />
         ))}
