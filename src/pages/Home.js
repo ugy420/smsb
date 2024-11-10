@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css'; 
+import './Home.css';
 import 'tailwindcss/tailwind.css';
 import Events from './Events';
+import About from '../components/About';
 import football from '../assets/foot.jpg';
 import volleyball from '../assets/vo.jpg';
 import basketball from '../assets/bas.jpg';
 
 const Home = () => {
   const [grounds, setGrounds] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/allGround')
@@ -24,31 +26,65 @@ const Home = () => {
     basketball: basketball,
   };
 
+  const itemsPerPage = 3;
+
+  // Navigation handlers
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - itemsPerPage, 0));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + itemsPerPage, grounds.length - itemsPerPage));
+  };
+
   return (
     <div className="container mx-auto mt-10 p-28">
       <h1 className="text-4xl font-bold text-center mb-4 text-blue-600">Welcome to the Sports Ground Booking System</h1>
       <p className="text-lg text-center mb-8 text-gray-700">Choose a ground to book:</p>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {grounds.map((ground) => (
-          <div key={ground.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-            <img
-              src={groundImages[ground.name.toLowerCase()] || football} // Fallback to football image if no match found
-              alt={`${ground.name} Ground`}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <h5 className="text-xl font-semibold text-gray-800 mb-2">{ground.name}</h5>
-              <p className="text-gray-600 mb-4">Status: {ground.status}</p>
-              <Link
-                to={`/sportsclub/${ground.id}`} // Redirect with ground id
-                className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
-              >
-                View
-              </Link>
+
+      <div className="relative">
+        {/* Carousel Wrapper */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-hidden">
+          {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
+            <div key={ground.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+              <img
+                src={groundImages[ground.name.toLowerCase()] || football} // Fallback to football image if no match found
+                alt={`${ground.name} Ground`}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h5 className="text-xl font-semibold text-gray-800 mb-2">{ground.name}</h5>
+                <p className="text-gray-600 mb-4">Status: {ground.status}</p>
+                <Link
+                  to={`/sportsclub/${ground.id}`} // Redirect with ground id
+                  className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
+                >
+                  View
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        {grounds.length > itemsPerPage && (
+          <>
+            <button
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600 transition"
+            >
+              ❮
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentIndex + itemsPerPage >= grounds.length}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600 transition"
+            >
+              ❯
+            </button>
+          </>
+        )}
       </div>
 
       {/* Title Bar Section */}
@@ -59,19 +95,12 @@ const Home = () => {
       </div>
 
       <section className="mt-10">
-        <Events /> {/* Display the Events here */}
+        <Events />
       </section>
 
       {/* About Us Section */}
       <section className="bg-blue-100 p-6 rounded-lg shadow-md mt-10">
-        <h2 className="text-2xl font-bold text-center mb-4">About Us</h2>
-        <p className="text-center text-gray-700">
-          Welcome to our Sports Ground Booking System! We provide a platform for sports enthusiasts to reserve and enjoy various sports facilities, including football grounds, volleyball courts, and basketball courts. 
-          Our mission is to promote physical activity and community engagement through sports. Whether you're looking to play for fun or to practice your skills, we have the right space for you!
-        </p>
-        <p className="text-center text-gray-700 mt-4">
-          Join us today and experience the joy of sports!
-        </p>
+        <About/>
       </section>
 
       {/* Footer */}

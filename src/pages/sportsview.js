@@ -1,4 +1,3 @@
-// SportsClub.js
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { useParams } from 'react-router-dom';
@@ -21,27 +20,28 @@ const SportsClub = () => {
       .catch((error) => console.error('Error fetching ground data:', error));
   }, [id]);
 
-  useEffect(() => {
+  const fetchAvailability = () => {
     if (selectedDate) {
       fetch(`http://localhost:3001/api/getBookingsbd/${id}?date=${selectedDate}`)
         .then((response) => response.json())
         .then((data) => {
-          if (data) {
-            setGroundAvailability(data);
-          } else {
-            console.log('No data available for this date');
-          }
+          setGroundAvailability(data || []);
         })
         .catch((error) => console.log('Error fetching availability data', error));
     }
-  }, [selectedDate, id]);
-
-  const handleBookNow = () => {
-    setShowBookingForm(true); // Show the booking form modal
   };
 
-  const closeModal = () => {
-    setShowBookingForm(false); // Close the modal
+  useEffect(() => {
+    fetchAvailability();
+  }, [selectedDate]);
+
+  const handleBookNow = () => {
+    setShowBookingForm(true);
+  };
+
+  const closeModalAndRefresh = () => {
+    setShowBookingForm(false);
+    fetchAvailability();
   };
 
   return (
@@ -98,9 +98,7 @@ const SportsClub = () => {
                   <tr key={`${slot.booking_time}`} className="border-b">
                     <td className="py-3 px-4">{slot.booking_time}</td>
                     <td className="py-3 px-4">{slot.name}</td>
-                    <td className="py-3 px-4">
-                      {slot.phone}
-                    </td>
+                    <td className="py-3 px-4">{slot.phone}</td>
                   </tr>
                 ))
               ) : (
@@ -127,19 +125,24 @@ const SportsClub = () => {
       {showBookingForm && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={closeModal} // Allow closing modal on background click
+          onClick={() => setShowBookingForm(false)}
         >
           <div
             className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative"
-            onClick={(e) => e.stopPropagation()} // Prevent modal close on clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={closeModal}
+              onClick={() => setShowBookingForm(false)}
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl font-bold"
             >
               &times;
             </button>
-            <BookingForm groundType={groundDetails.name} date={selectedDate} groundId = {id} />
+            <BookingForm
+              groundType={groundDetails.name}
+              date={selectedDate}
+              groundId={id}
+              onSuccess={closeModalAndRefresh}
+            />
           </div>
         </div>
       )}
