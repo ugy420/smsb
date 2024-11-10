@@ -11,7 +11,6 @@ const Home = () => {
   const [grounds, setGrounds] = useState([]);
 
   useEffect(() => {
-    // Fetch ground details from the API
     fetch('http://localhost:3001/api/allGround')
       .then((response) => response.json())
       .then((data) => setGrounds(data))

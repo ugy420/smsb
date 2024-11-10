@@ -1,16 +1,17 @@
+// SportsClub.js
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import img from '../assets/event_bas.jpg';
+import BookingForm from './BookGround';
 
 const SportsClub = () => {
   const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState("");
   const [groundDetails, setGroundDetails] = useState({});
   const [groundAvailability, setGroundAvailability] = useState([]);
-  const navigate = useNavigate();
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
-  // Fetch ground details from the API using the ID
   useEffect(() => {
     fetch(`http://localhost:3001/api/getGround/${id}`)
       .then((response) => response.json())
@@ -23,7 +24,7 @@ const SportsClub = () => {
   useEffect(() => {
     if (selectedDate) {
       fetch(`http://localhost:3001/api/getBookingsbd/${id}?date=${selectedDate}`)
-        .then((response) => response.json())  // Ensure we parse the response to JSON
+        .then((response) => response.json())
         .then((data) => {
           if (data) {
             setGroundAvailability(data);
@@ -34,27 +35,23 @@ const SportsClub = () => {
         .catch((error) => console.log('Error fetching availability data', error));
     }
   }, [selectedDate, id]);
-  
 
   const handleBookNow = () => {
-    navigate('/book');
+    setShowBookingForm(true); // Show the booking form modal
+  };
+
+  const closeModal = () => {
+    setShowBookingForm(false); // Close the modal
   };
 
   return (
     <div className="bg-gray-100 mt-32 min-h-screen flex flex-col items-center">
-      {/* Display ground details if available */}
       {groundDetails && groundDetails.name ? (
         <>
-          {/* Ground Image */}
           <div className="w-full max-w-4xl overflow-hidden rounded-lg shadow-lg">
-            <img
-              src={img}
-              alt={groundDetails.name}
-              className="w-full h-96 object-cover"
-            />
+            <img src={img} alt={groundDetails.name} className="w-full h-96 object-cover" />
           </div>
 
-          {/* Ground Information */}
           <div className="mt-6 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
             <h1 className="text-4xl font-bold text-gray-800">{groundDetails.name}</h1>
             <p className="text-lg text-gray-600 mt-2">{groundDetails.name}</p>
@@ -63,7 +60,6 @@ const SportsClub = () => {
             </p>
           </div>
 
-          {/* Description */}
           <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-3xl font-semibold text-gray-700">Description</h2>
             <p className="text-gray-600 mt-2">
@@ -75,7 +71,6 @@ const SportsClub = () => {
         <div className="mt-8 text-center">Loading ground details...</div>
       )}
 
-      {/* Check Ground Availability */}
       <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-3xl font-semibold text-gray-700">Check Ground Availability</h2>
         <div className="mt-4">
@@ -100,11 +95,11 @@ const SportsClub = () => {
             <tbody>
               {groundAvailability.length > 0 ? (
                 groundAvailability.map((slot) => (
-                  <tr key={`${slot.user_id}`} className="border-b">
-                    <td className="py-3 px-4">{slot.booking_time}</td> {/* Display booking_time */}
+                  <tr key={`${slot.booking_time}`} className="border-b">
+                    <td className="py-3 px-4">{slot.booking_time}</td>
                     <td className="py-3 px-4">{slot.name}</td>
                     <td className="py-3 px-4">
-                      {slot.phone} {/* Format and display booking_date */}
+                      {slot.phone}
                     </td>
                   </tr>
                 ))
@@ -120,7 +115,6 @@ const SportsClub = () => {
         </div>
       </div>
 
-      {/* Booking Contact */}
       <div className="mt-8 max-w-4xl w-full p-6 bg-white rounded-lg shadow-md">
         <button
           onClick={handleBookNow}
@@ -129,6 +123,26 @@ const SportsClub = () => {
           Book Now
         </button>
       </div>
+
+      {showBookingForm && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeModal} // Allow closing modal on background click
+        >
+          <div
+            className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative"
+            onClick={(e) => e.stopPropagation()} // Prevent modal close on clicking inside
+          >
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-xl font-bold"
+            >
+              &times;
+            </button>
+            <BookingForm groundType={groundDetails.name} date={selectedDate} groundId = {id} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

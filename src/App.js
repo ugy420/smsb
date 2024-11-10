@@ -13,11 +13,13 @@ import SportsClub from './pages/sportsview';
 import AccountPage from './components/Account';
 import Members from './pages/members';
 import Grounds from './pages/grounds';
+import { UserProvider } from './components/userprovider';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
+    <UserProvider>
     <Router>
       {isLoggedIn && <Navbar />}
 
@@ -37,6 +39,7 @@ const App = () => {
         <Route path="/account" element={<AccountPage />} />
       </Routes>
     </Router>
+    </UserProvider>
   );
 };
 
