@@ -1,6 +1,6 @@
 import React from 'react';
 import teamMember2 from '../assets/bas.jpg'; // Example image
-import teamMember3 from '../assets/foot.jpg'; // Example image  // Import Footer component
+import teamMember3 from '../assets/foot.jpg'; // Example image
 
 const About = () => {
     return (
@@ -33,9 +33,16 @@ const About = () => {
             <div className="mt-12 text-center">
                 <p className="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">
                     Welcome to our Sports Ground Booking System! We provide a platform for sports enthusiasts to reserve and enjoy various sports facilities, including football grounds, volleyball courts, and basketball courts. Our mission is to promote physical activity and community engagement through sports. Whether you're looking to play for fun or to practice your skills, we have the right space for you!
-
+                    <br />
                     Join us today and experience the joy of sports!
                 </p>
+            </div>
+
+            {/* Link to About Us section in Home page */}
+            <div className="text-center mt-8">
+                <a href="#about" className="text-blue-600 hover:text-blue-800 text-lg">
+                    Back to About Us Section on Home Page
+                </a>
             </div>
         </div>
     );

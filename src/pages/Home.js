@@ -1,4 +1,3 @@
-// Home.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
@@ -109,11 +108,12 @@ const Home = () => {
         <Events showFooter={false} />
       </section>
 
-      <section className="bg-blue-100 p-4 rounded-lg shadow-md">
+      {/* About Section */}
+      <section id="about" className="bg-blue-100 p-4 rounded-lg shadow-md">
         <About />
       </section>
 
-      {/* Use Footer component here */}
+      {/* Footer */}
       <Footer />
     </div>
   );
