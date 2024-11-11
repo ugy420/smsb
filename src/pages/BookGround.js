@@ -54,7 +54,6 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
       return;
     }
 
-    // Check if the selected time is already booked
     const payload = {
       groundId: parseInt(groundId, 10),
       date: formData.date,
@@ -62,22 +61,6 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/api/checkBooking', { // Make sure this API exists
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      
-      if (data.isBooked) {
-        alert('Ground is not available at the selected time.');
-        return;
-      }
-
-      // Proceed with booking if no conflicts
       const bookingPayload = {
         userId: parseInt(user, 10),
         groundId: parseInt(groundId, 10),
@@ -93,13 +76,20 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
         body: JSON.stringify(bookingPayload),
       });
 
+      const bookingData = await bookingResponse.json();
+
       if (bookingResponse.ok) {
         onSuccess();
+      } else if (bookingResponse.status === 409) {
+        // Handle the duplicate booking error
+        alert(bookingData.message || 'This booking already exists. Please select a different time or date.');
       } else {
-        console.error('Booking failed:', await bookingResponse.json());
+        console.error('Booking failed:', bookingData);
+        alert('Booking failed. Please try again.');
       }
     } catch (error) {
       console.error('Error making booking request:', error);
+      alert('An error occurred. Please try again later.');
     }
   };
 
