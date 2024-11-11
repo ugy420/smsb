@@ -1,4 +1,3 @@
-// Home.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
@@ -7,7 +6,7 @@ import 'tailwindcss/tailwind.css';
 import Events from './Events';
 import About from '../components/About';
 import bb from '../assets/bas.jpg';
-import Footer from './footer';  // Import Footer component
+import Footer from './footer';
 
 const Home = () => {
   const [grounds, setGrounds] = useState([]);
@@ -21,8 +20,10 @@ const Home = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        console.log('Fetched data:', data); // Log fetched data for debugging
+
         const formatGrounds = data.map((ground) => {
-          const image = require(`../assets/${ground.img}`);
+          const image = ground.img ? require(`../assets/${ground.img}`) : bb; // Set fallback image if needed
           return {
             ...ground,
             image,
@@ -37,15 +38,17 @@ const Home = () => {
     fetchGrounds();
   }, []);
 
+  const activeGrounds = grounds.filter((ground) => ground.status === 'Active');
+  console.log('Active grounds:', activeGrounds);
+
   const itemsPerPage = 3;
 
-  // Navigation handlers
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - itemsPerPage, 0));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + itemsPerPage, grounds.length - itemsPerPage));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + itemsPerPage, activeGrounds.length - itemsPerPage));
   };
 
   return (
@@ -60,20 +63,18 @@ const Home = () => {
       </header>
 
       <div className="relative mt-10 p-10">
-        {/* Carousel Wrapper */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-hidden">
-          {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
+          {activeGrounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
             <div key={ground.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
               <img
-                src={ground.image || bb}
+                src={ground.image}
                 alt={`${ground.name} Ground`}
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
                 <h5 className="text-xl font-semibold text-gray-800 mb-2">{ground.name}</h5>
-                <p className="text-gray-600 mb-4">Status: {ground.status}</p>
                 <Link
-                  to={`/sportsclub/${ground.id}`} // Redirect with ground id
+                  to={`/sportsclub/${ground.id}`}
                   className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
                 >
                   View
@@ -83,8 +84,7 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Navigation Buttons */}
-        {grounds.length > itemsPerPage && (
+        {activeGrounds.length > itemsPerPage && (
           <>
             <button
               onClick={handlePrevious}
@@ -95,7 +95,7 @@ const Home = () => {
             </button>
             <button
               onClick={handleNext}
-              disabled={currentIndex + itemsPerPage >= grounds.length}
+              disabled={currentIndex + itemsPerPage >= activeGrounds.length}
               className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600 transition"
             >
               ❯
@@ -105,7 +105,6 @@ const Home = () => {
       </div>
 
       <section className="mt-0">
-        {/* Pass showFooter={false} to avoid footer rendering on the Home page */}
         <Events showFooter={false} />
       </section>
 
@@ -113,7 +112,6 @@ const Home = () => {
         <About />
       </section>
 
-      {/* Use Footer component here */}
       <Footer />
     </div>
   );
