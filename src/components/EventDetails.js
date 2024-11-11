@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Footer from '../pages/footer';
 import footballImage from '../assets/foot.jpg';
+import Sus from '../assets/sus.jpg';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const EventDetails = () => {
       {
         id: '2',
         name: 'Volleyball Championship',
-        image: 'https://via.placeholder.com/600x400', // Use a placeholder image
+        image: Sus, // Use a placeholder image
         description: 'The biggest volleyball championship of the year.',
         matches: [
           { date: '2024-11-25', time: '3:00 PM', description: 'Match IT vs Civil' },
