@@ -1,3 +1,4 @@
+// Home.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
@@ -6,7 +7,7 @@ import 'tailwindcss/tailwind.css';
 import Events from './Events';
 import About from '../components/About';
 import bb from '../assets/bas.jpg';
-import Footer from './footer';
+import Footer from './footer';  // Import Footer component
 
 const Home = () => {
   const [grounds, setGrounds] = useState([]);
@@ -36,7 +37,7 @@ const Home = () => {
     fetchGrounds();
   }, []);
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 3;
 
   // Navigation handlers
   const handlePrevious = () => {
@@ -58,27 +59,22 @@ const Home = () => {
         </p>
       </header>
 
-      <div className="relative mt-10 p-4">
+      <div className="relative mt-10 p-10">
         {/* Carousel Wrapper */}
-        <div className="flex flex-col space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-hidden">
           {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
-            <div key={ground.id} className="relative bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={ground.image || bb}
-                  alt={`${ground.name} Ground`}
-                  className="w-full h-full object-cover opacity-90"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center text-white text-xl font-semibold">
-                  {ground.name}
-                </div>
-              </div>
-              <div className="p-4 text-center">
-                <p className="text-gray-700 mb-2">{ground.description}</p>
+            <div key={ground.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+              <img
+                src={ground.image || bb}
+                alt={`${ground.name} Ground`}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h5 className="text-xl font-semibold text-gray-800 mb-2">{ground.name}</h5>
                 <p className="text-gray-600 mb-4">Status: {ground.status}</p>
                 <Link
-                  to={`/sportsclub/${ground.id}`}
-                  className="inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+                  to={`/sportsclub/${ground.id}`} // Redirect with ground id
+                  className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
                 >
                   View
                 </Link>
@@ -89,33 +85,35 @@ const Home = () => {
 
         {/* Navigation Buttons */}
         {grounds.length > itemsPerPage && (
-          <div className="flex justify-between mt-4">
+          <>
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="bg-gray-800 text-white p-2 rounded-lg hover:bg-gray-600 transition"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600 transition"
             >
               ❮
             </button>
             <button
               onClick={handleNext}
               disabled={currentIndex + itemsPerPage >= grounds.length}
-              className="bg-gray-800 text-white p-2 rounded-lg hover:bg-gray-600 transition"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-600 transition"
             >
               ❯
             </button>
-          </div>
+          </>
         )}
       </div>
 
-      <section id="events" className="mt-8">
+      <section className="mt-0">
+        {/* Pass showFooter={false} to avoid footer rendering on the Home page */}
         <Events showFooter={false} />
       </section>
 
-      <section id="about" className="bg-blue-50 p-6 mt-10 rounded-lg shadow-lg">
+      <section className="bg-blue-100 p-4 rounded-lg shadow-md">
         <About />
       </section>
 
+      {/* Use Footer component here */}
       <Footer />
     </div>
   );
