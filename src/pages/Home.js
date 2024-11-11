@@ -1,3 +1,4 @@
+// Home.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
@@ -11,7 +12,6 @@ const Home = () => {
   const [grounds, setGrounds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-
   useEffect(() => {
     const fetchGrounds = async () => {
       try {
@@ -22,7 +22,6 @@ const Home = () => {
         const data = await response.json();
         const formatGrounds = data.map((ground) => {
           const image = require(`../assets/${ground.img}`);
-
           return {
             ...ground,
             image,
@@ -98,26 +97,19 @@ const Home = () => {
         )}
       </div>
 
-      {/* Title Bar Section */}
-      <div className="mt-10">
-        <div className="px-10 py-4 bg-blue-500 text-white rounded-lg text-lg font-semibold">
-          Upcoming Events
-        </div>
-      </div>
-
       <section className="mt-0">
-        <Events />
+        {/* Pass showFooter={false} to avoid footer rendering on the Home page */}
+        <Events showFooter={false} />
       </section>
 
       <section className="bg-blue-100 p-4 rounded-lg shadow-md">
         <About />
       </section>
 
-      {/* Footer */}
+      {/* Footer for the Home page */}
       <footer className="bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] text-white py-12 mt-10">
         <div className="container mx-auto px-6 sm:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-10">
-
             {/* Logo and Brand */}
             <div className="text-center md:text-left">
               <h2 className="text-4xl font-extrabold text-white tracking-wide transform hover:scale-105 transition duration-300 ease-in-out">
@@ -135,34 +127,9 @@ const Home = () => {
               <Link to="/privacy-policy" className="hover:text-[#93C5FD] transform transition duration-300">Privacy Policy</Link>
               <Link to="/terms-of-service" className="hover:text-[#93C5FD] transform transition duration-300">Terms of Service</Link>
             </div>
-
-            {/* Social Media Icons */}
-            <div className="flex space-x-6 text-white">
-              <a href="#" className="hover:text-[#93C5FD] transform hover:scale-110 transition duration-300">
-                <i className="fab fa-facebook-f text-2xl"></i>
-              </a>
-              <a href="#" className="hover:text-[#93C5FD] transform hover:scale-110 transition duration-300">
-                <i className="fab fa-twitter text-2xl"></i>
-              </a>
-              <a href="#" className="hover:text-[#93C5FD] transform hover:scale-110 transition duration-300">
-                <i className="fab fa-instagram text-2xl"></i>
-              </a>
-              <a href="#" className="hover:text-[#93C5FD] transform hover:scale-110 transition duration-300">
-                <i className="fab fa-linkedin-in text-2xl"></i>
-              </a>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="my-8 border-t border-white opacity-30"></div>
-
-          {/* Copyright */}
-          <div className="text-center text-sm text-white opacity-80 hover:opacity-100 transition-opacity duration-300">
-            <p>© {new Date().getFullYear()} Sports Ground Booking System. All Rights Reserved.</p>
           </div>
         </div>
       </footer>
-
     </div>
   );
 };

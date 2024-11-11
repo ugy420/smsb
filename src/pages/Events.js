@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import football from '../assets/foot.jpg';
+import Footer from './footer';  // Import Footer component
 
-const Events = () => {
+const Events = ({ showFooter = true }) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ const Events = () => {
         const formattedEvents = data.map((event) => {
           const image = event.img_slot
             ? require(`../assets/${event.img_slot}`)
-            : football; // Use a default image if img is not found
+            : football;
 
           return {
             ...event,
@@ -25,29 +26,52 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10 mt-28">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">Upcoming Events</h1>
-      <div className="container mx-auto px-4 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
-          <div
-            key={event.id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out"
-          >
-            <img src={event.image} alt={event.name} className="h-48 w-full object-cover" />
-            <div className="p-6">
-              <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
-              <p className="text-gray-600 mt-2">
-                <strong>Date:</strong> {event.date}
-                <br />
-                <strong>Time:</strong> {event.time}
-              </p>
-              <p className="text-gray-600 mt-4">{event.description}</p>
-              <div className="flex justify-center mt-6">
+    <div className="bg-gray-100 min-h-screen">
+      {/* Header Section */}
+      <header className="py-12 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white mt-16">
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide mb-4">
+          Upcoming Events
+        </h1>
+        <p className="text-lg sm:text-xl font-medium max-w-3xl mx-auto">
+          Stay updated with the latest events and book your spot for an exciting time. Don’t miss out on the action!
+        </p>
+      </header>
+
+      {/* Events List Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {events.map((event) => (
+              <div
+                key={event.id}
+                className="group relative rounded-lg shadow-lg overflow-hidden transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-xl"
+              >
+                <div className="relative">
+                  <img
+                    src={event.image}
+                    alt={event.name}
+                    className="h-48 w-full object-cover transition-all duration-500 ease-in-out"
+                  />
+                  {/* Add a darker overlay without blur */}
+                  <div className="absolute inset-0 bg-black opacity-25 transition-all duration-500 ease-in-out"></div>
+                </div>
+                <div className="relative p-6 z-10"> {/* Ensure text stays on top */}
+                  <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
+                  <p className="text-gray-600 mt-2">
+                    <strong>Date:</strong> {event.date}
+                    <br />
+                    <strong>Time:</strong> {event.time}
+                  </p>
+                  <p className="text-gray-600 mt-4">{event.description}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
+
+      {/* Conditionally render Footer */}
+      {showFooter && <Footer />}
     </div>
   );
 };
