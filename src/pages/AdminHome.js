@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'; // Import useState, useEffect, useRef
+import React, { useState, useEffect, useRef } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import InfoCard from '../components/InformationCard';
 import StackedBarChart from '../components/graph';
@@ -14,6 +14,7 @@ const AHome = () => {
   const [userCount, setUserCount] = useState(null);
   const [groundCount, setGroundCount] = useState(null);
   const [eventCount, setEventCount] = useState(null);
+  const [bookingCount, setBookingCount] = useState(null); // Add state for booking count
 
   useEffect(() => {
     const fetchUserCount = async () => {
@@ -58,9 +59,24 @@ const AHome = () => {
       }
     };
 
+    const fetchBookingCount = async () => { // Fetch booking count
+      try {
+        const response = await fetch('http://localhost:3001/api/getBooksCount');
+        if (response.ok) {
+          const data = await response.json();
+          setBookingCount(data.count);
+        } else {
+          console.error('Failed to fetch booking count');
+        }
+      } catch (error) {
+        console.error('Error fetching booking count:', error);
+      }
+    };
+
     fetchUserCount();
     fetchGroundCount();
     fetchEventCount();
+    fetchBookingCount(); // Call the fetch function for booking count
   }, []);
 
   return (
@@ -74,26 +90,26 @@ const AHome = () => {
           <InfoCard
             icon={membersIcon}
             title="Members"
-            number={userCount !== null ? userCount : 'Loading...'} // Display the user count or 'Loading...' if not fetched
-            BgColor="bg-red-600"   // Background color for the number
-            numberTextColor="text-red-600" // Font color for the number
-            onClick={() => navigate('/members')}  // Navigate to members page on click
+            number={userCount !== null ? userCount : 'Loading...'}
+            BgColor="bg-red-600"
+            numberTextColor="text-red-600"
+            onClick={() => navigate('/members')}
           />
           <InfoCard
             icon={groundsIcon}
             title="Grounds"
-            number={groundCount !== null ? groundCount : 'Loading...'} // Display the ground count or 'Loading...'
-            BgColor="bg-green-600"   // Background color for the number
-            numberTextColor="text-green-600" // Font color for the number
-            onClick={() => navigate('/grounds')}  // Navigate to grounds page on click
+            number={groundCount !== null ? groundCount : 'Loading...'}
+            BgColor="bg-green-600"
+            numberTextColor="text-green-600"
+            onClick={() => navigate('/grounds')}
           />
           <InfoCard
             icon={bookingsIcon}
             title="Event"
-            number={eventCount !== null ? eventCount : 'Loading...'}  // Display the booking count or 'Loading...'
-            BgColor="bg-yellow-500"  // Background color for the number
-            numberTextColor="text-yellow-500" // Font color for the number
-            onClick={() => navigate('/aevents')}  // Handle bookings click
+            number={eventCount !== null ? eventCount : 'Loading...'}
+            BgColor="bg-yellow-500"
+            numberTextColor="text-yellow-500"
+            onClick={() => navigate('/aevents')}
           />
         </div>
       </div>
@@ -102,10 +118,10 @@ const AHome = () => {
         className="mt-10 bg-blue-600 p-5 text-center text-white font-bold text-lg rounded"
         ref={recentRef}
       >
-        Recent
+        Recent Bookings {/* Display booking count */}
       </div>
       <div className="mt-6">
-        <DataGriddy />
+        <DataGriddy/>
       </div>
     </div>
   );

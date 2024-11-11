@@ -78,24 +78,39 @@ const AEvents = () => {
       setMessage("Please upload an image.");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('name', newEvent.name);
     formData.append('description', newEvent.description);
     formData.append('img_slot', newEvent.img_slot);
     formData.append('grnId', parseInt(newEvent.grnId, 10));
-
+  
     try {
       const response = await fetch('http://localhost:3001/api/addEvent', {
         method: 'POST',
         body: formData,
       });
-      console.log(formData);
+  
       if (response.ok) {
         const addedEvent = await response.json();
-        setEventsData([...eventsData, addedEvent]);
-        setMessage("New event added successfully.");
-        setShowForm(false);
+        // Option 1: Update the events state by re-fetching the events data
+        const eventsResponse = await fetch('http://localhost:3001/api/getevents');
+        if (eventsResponse.ok) {
+          const events = await eventsResponse.json();
+          const formattedEvents = events.map((event) => {
+            const image = require(`../assets/${event.img_slot}`);
+            return {
+              ...event,
+              image,
+            };
+          });
+          setEventsData(formattedEvents);  // Update state with fresh data
+          setMessage("New event added successfully.");
+          setShowForm(false);
+        } else {
+          setMessage("Failed to fetch updated events.");
+        }
+  
       } else {
         setMessage("Failed to add new event.");
       }
@@ -103,6 +118,7 @@ const AEvents = () => {
       setMessage("Error adding new event.");
     }
   };
+  
 
   if (loading) {
     return <div className="container mx-auto p-28">Loading...</div>;
