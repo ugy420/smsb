@@ -49,11 +49,17 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto mt-10 p-28">
-      <h1 className="text-4xl font-bold text-center mb-4 text-blue-600">Welcome to the Sports Ground Booking System</h1>
-      <p className="text-lg text-center mb-8 text-gray-700">Choose a ground to book:</p>
+    <div className="container mx-auto">
+      <header className="py-12 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white mt-16">
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide mb-4">
+          Welcome to the Sports Ground Booking System
+        </h1>
+        <p className="text-lg sm:text-xl font-medium max-w-3xl mx-auto">
+          Choose a ground to book
+        </p>
+      </header>
 
-      <div className="relative">
+      <div className="relative mt-10 p-5">
         {/* Carousel Wrapper */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-hidden">
           {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
