@@ -8,6 +8,7 @@ import Signup from './pages/SignUp';
 import NotFound from './pages/NotFound';
 import GroundList from './components/Groundlist';
 import Events from './pages/Events';
+import EventDetails from './components/EventDetails';
 import AHome from './pages/AdminHome';
 import SportsClub from './pages/sportsview';
 import Members from './pages/members';
@@ -22,27 +23,58 @@ const App = () => {
 
   return (
     <UserProvider>
-    <Router>
-      {isLoggedIn && <Navbar />}
-
-      <Routes>
-        <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/book" element={isLoggedIn ? <BookGround /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/ground-list" element={isLoggedIn ? <GroundList /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/events" element={isLoggedIn ? <Events /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/sportsclub" element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/sportsclub/:id" element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/ahome" element={isLoggedIn ? <AHome /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/home" element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/members" element={isLoggedIn ? <Members /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/grounds" element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/about-us" element={<About />} />
-        <Route path="/mybooking" element={<MyBooking />} />
-        <Route path="/aevents" element={isLoggedIn ? <AEvents /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+      <Router>
+        {isLoggedIn && <Navbar />}
+        <Routes>
+          <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route
+            path="/book"
+            element={isLoggedIn ? <BookGround /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/ground-list"
+            element={isLoggedIn ? <GroundList /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/events"
+            element={isLoggedIn ? <Events /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          {/* EventDetails with dynamic ID */}
+          <Route
+            path="/event/:id"
+            element={isLoggedIn ? <EventDetails /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/sportsclub"
+            element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/sportsclub/:id"
+            element={isLoggedIn ? <SportsClub /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/ahome"
+            element={isLoggedIn ? <AHome /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/home"
+            element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/members"
+            element={isLoggedIn ? <Members /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+            path="/grounds"
+            element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/mybooking" element={isLoggedIn ? <MyBooking /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/aevents" element={isLoggedIn ? <AEvents /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
-    </Router>
+      </Router>
     </UserProvider>
   );
 };

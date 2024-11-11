@@ -1,3 +1,4 @@
+// Home.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.min.css';
@@ -58,7 +59,7 @@ const Home = () => {
         </p>
       </header>
 
-      <div className="relative mt-10 p-5">
+      <div className="relative mt-10 p-10">
         {/* Carousel Wrapper */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-hidden">
           {grounds.slice(currentIndex, currentIndex + itemsPerPage).map((ground) => (
@@ -108,12 +109,11 @@ const Home = () => {
         <Events showFooter={false} />
       </section>
 
-      {/* About Section */}
-      <section id="about" className="bg-blue-100 p-4 rounded-lg shadow-md">
+      <section className="bg-blue-100 p-4 rounded-lg shadow-md">
         <About />
       </section>
 
-      {/* Footer */}
+      {/* Use Footer component here */}
       <Footer />
     </div>
   );

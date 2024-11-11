@@ -33,8 +33,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
     const day = date.getDay();
 
     const times = day === 0 || day === 6
-      ? ['9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM', '12:00 PM - 1:00 PM','1:00 PM - 2:00 PM','2:00 PM - 3:00 PM','3:00 PM - 4:00 PM','4:00 PM - 5:00 PM',
-        '5:00 PM - 6:00 PM',]
+      ? ['9:00 AM - 10:00 AM', '10:00 AM - 11:00 AM', '11:00 AM - 12:00 PM', '12:00 PM - 1:00 PM','1:00 PM - 2:00 PM','2:00 PM - 3:00 PM','3:00 PM - 4:00 PM','4:00 PM - 5:00 PM', '5:00 PM - 6:00 PM']
       : ['4:00 PM - 5:00 PM', '5:00 PM - 6:00 PM'];
 
     setTimeOptions(times);
@@ -95,7 +94,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
 
   return (
     <div className="flex items-center justify-center py-10 px-4 bg-transparent">
-      <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-lg p-6 sm:p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Book Your Ground</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex items-center space-x-2">
@@ -109,7 +108,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
               name="date"
               value={formData.date}
               onChange={handleChange}
-              className="w-full border rounded px-4 py-2"
+              className="w-full border rounded px-4 py-2 text-sm sm:text-base"
             />
           </div>
           <div className="flex items-center space-x-2 mt-4">
@@ -118,7 +117,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
               name="time"
               value={formData.time}
               onChange={handleChange}
-              className="w-full border rounded px-4 py-2"
+              className="w-full border rounded px-4 py-2 text-sm sm:text-base"
             >
               <option value="">Select Time</option>
               {timeOptions.map((time) => (
