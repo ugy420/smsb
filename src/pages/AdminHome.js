@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'; // Import useRef
+import React, { useState, useEffect, useRef } from 'react'; // Import useState, useEffect, useRef
 import { useNavigate } from 'react-router-dom';
 import InfoCard from '../components/InformationCard';
 import StackedBarChart from '../components/graph';
@@ -8,8 +8,60 @@ import bookingsIcon from '../assets/bookings-icon.svg';
 import DataGriddy from '../components/datagrid.tsx';
 
 const AHome = () => {
-  const navigate = useNavigate(); // Initialize the navigate function
-  const recentRef = useRef(null); // Create a ref for the Recent section
+  const navigate = useNavigate();
+  const recentRef = useRef(null);
+
+  const [userCount, setUserCount] = useState(null);
+  const [groundCount, setGroundCount] = useState(null);
+  const [bookingCount, setBookingCount] = useState(null);
+
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/getUserCount');
+        if (response.ok) {
+          const data = await response.json();
+          setUserCount(data.count);
+        } else {
+          console.error('Failed to fetch user count');
+        }
+      } catch (error) {
+        console.error('Error fetching user count:', error);
+      }
+    };
+
+    const fetchGroundCount = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/getGroundCount');
+        if (response.ok) {
+          const data = await response.json();
+          setGroundCount(data.count);
+        } else {
+          console.error('Failed to fetch ground count');
+        }
+      } catch (error) {
+        console.error('Error fetching ground count:', error);
+      }
+    };
+
+    const fetchBookingCount = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/getBooksCount');
+        if (response.ok) {
+          const data = await response.json();
+          setBookingCount(data.count);
+        } else {
+          console.error('Failed to fetch booking count');
+        }
+      } catch (error) {
+        console.error('Error fetching booking count:', error);
+      }
+    };
+
+    fetchUserCount();
+    fetchGroundCount();
+    fetchBookingCount();
+  }, []);
 
   const handleBookingsClick = () => {
     if (recentRef.current) {
@@ -28,7 +80,7 @@ const AHome = () => {
           <InfoCard
             icon={membersIcon}
             title="Members"
-            number="98"
+            number={userCount !== null ? userCount : 'Loading...'} // Display the user count or 'Loading...' if not fetched
             BgColor="bg-red-600"   // Background color for the number
             numberTextColor="text-red-600" // Font color for the number
             onClick={() => navigate('/members')}  // Navigate to members page on click
@@ -36,7 +88,7 @@ const AHome = () => {
           <InfoCard
             icon={groundsIcon}
             title="Grounds"
-            number="5"
+            number={groundCount !== null ? groundCount : 'Loading...'} // Display the ground count or 'Loading...'
             BgColor="bg-green-600"   // Background color for the number
             numberTextColor="text-green-600" // Font color for the number
             onClick={() => navigate('/grounds')}  // Navigate to grounds page on click
@@ -44,7 +96,7 @@ const AHome = () => {
           <InfoCard
             icon={bookingsIcon}
             title="Bookings"
-            number="664"
+            number={bookingCount !== null ? bookingCount : 'Loading...'}  // Display the booking count or 'Loading...'
             BgColor="bg-yellow-500"  // Background color for the number
             numberTextColor="text-yellow-500" // Font color for the number
             onClick={handleBookingsClick}  // Handle bookings click
