@@ -5,17 +5,17 @@ const MyBooking = () => {
   const { user } = useUser(); // Get user ID from context
   const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/api/getBookingU/${user}`);
-        const data = await response.json();
-        setBookings(data);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-    };
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/getBookingU/${user}`);
+      const data = await response.json();
+      setBookings(data);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
+  };
 
+  useEffect(() => {
     if (user) {
       fetchBookings(); // Fetch bookings only if user ID is available
     }
@@ -29,32 +29,40 @@ const MyBooking = () => {
 
   const cancelBooking = async (booking) => {
     try {
-
-      const formatBooking = {
+      const bookingDate = new Date(booking.booking_date);
+  
+      // Add one day
+      bookingDate.setDate(bookingDate.getDate() + 1);
+  
+      const formattedBooking = {
         ...booking,
-        booking_date: new Date(booking.booking_date).toISOString().split('T')[0],
+        booking_date: bookingDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
       };
-      console.log(formatBooking);
-      const response = await fetch('http://localhost:3001/api/delBooking', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formatBooking),
-      });
       
+      console.log(formattedBooking); // Check the new formatted date
+      
+      const response = await fetch('http://localhost:3001/api/delBooking', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedBooking),
+      });
+  
       const data = await response.json();
+      console.log(data);
   
       if (response.ok) {
-        setBookings(bookings.filter((b) => b.id !== booking.id));  
+        fetchBookings();
         alert(data.message); 
       } else {
-        alert(data.message); 
+        alert(data.message);
       }
     } catch (error) {
       console.error('Error canceling booking:', error);
     }
   };
+  
   
 
   return (
