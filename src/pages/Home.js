@@ -7,6 +7,7 @@ import 'tailwindcss/tailwind.css';
 import Events from './Events';
 import About from '../components/About';
 import bb from '../assets/bas.jpg';
+import Footer from './footer';  // Import Footer component
 
 const Home = () => {
   const [grounds, setGrounds] = useState([]);
@@ -106,30 +107,8 @@ const Home = () => {
         <About />
       </section>
 
-      {/* Footer for the Home page */}
-      <footer className="bg-gradient-to-r from-[#1E40AF] to-[#3B82F6] text-white py-12 mt-10">
-        <div className="container mx-auto px-6 sm:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-10">
-            {/* Logo and Brand */}
-            <div className="text-center md:text-left">
-              <h2 className="text-4xl font-extrabold text-white tracking-wide transform hover:scale-105 transition duration-300 ease-in-out">
-                Sports Ground Booking
-              </h2>
-              <p className="text-base mt-2 text-white opacity-80 hover:opacity-100 transition-opacity duration-300 max-w-xs">
-                Book sports grounds seamlessly and enjoy sports at your convenience.
-              </p>
-            </div>
-
-            {/* Footer Links */}
-            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 text-base text-white">
-              <Link to="/about" className="hover:text-[#93C5FD] transform transition duration-300">About Us</Link>
-              <Link to="/contact" className="hover:text-[#93C5FD] transform transition duration-300">Contact</Link>
-              <Link to="/privacy-policy" className="hover:text-[#93C5FD] transform transition duration-300">Privacy Policy</Link>
-              <Link to="/terms-of-service" className="hover:text-[#93C5FD] transform transition duration-300">Terms of Service</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Use Footer component here */}
+      <Footer />
     </div>
   );
 };
