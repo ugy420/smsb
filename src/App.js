@@ -10,9 +10,9 @@ import GroundList from './components/Groundlist';
 import Events from './pages/Events';
 import AHome from './pages/AdminHome';
 import SportsClub from './pages/sportsview';
-import AccountPage from './components/Account';
 import Members from './pages/members';
 import Grounds from './pages/grounds';
+import About from './components/About';
 import { UserProvider } from './components/userprovider';
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
         <Route path="/home" element={isLoggedIn ? <Home /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/members" element={isLoggedIn ? <Members /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/grounds" element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/about-us" element={<About />} />
       </Routes>
     </Router>
     </UserProvider>
