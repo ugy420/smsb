@@ -10,7 +10,7 @@ const MyBooking = () => {
       try {
         const response = await fetch(`http://localhost:3001/api/getBookingU/${user}`);
         const data = await response.json();
-        setBookings(data); // Set the bookings data
+        setBookings(data);
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
@@ -27,23 +27,35 @@ const MyBooking = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  const cancelBooking = async (bookingId) => {
+  const cancelBooking = async (booking) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/cancelBooking/${bookingId}`, {
-        method: 'DELETE',
-      });
-      const data = await response.json();
 
+      const formatBooking = {
+        ...booking,
+        booking_date: new Date(booking.booking_date).toISOString().split('T')[0],
+      };
+      console.log(formatBooking);
+      const response = await fetch('http://localhost:3001/api/delBooking', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formatBooking),
+      });
+      
+      const data = await response.json();
+  
       if (response.ok) {
-        setBookings(bookings.filter((booking) => booking.id !== bookingId)); // Remove the canceled booking
-        alert(data.message); // Show success message
+        setBookings(bookings.filter((b) => b.id !== booking.id));  
+        alert(data.message); 
       } else {
-        alert(data.message); // Show error message if booking not found or cancellation failed
+        alert(data.message); 
       }
     } catch (error) {
       console.error('Error canceling booking:', error);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
@@ -52,13 +64,15 @@ const MyBooking = () => {
         {bookings.length > 0 ? (
           <div className="space-y-6">
             {bookings.map((booking) => (
-              <div key={booking.id} className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
+              <div key={`${booking.ground_id}-${booking.booking_date}-${booking.booking_time}`} className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
                 <div className="p-6">
-                  <h3 className="text-2xl font-semibold text-gray-800">{booking.ground}</h3>
+                  <h3 className="text-2xl font-semibold text-gray-800">{booking.ground_name}</h3>
                   <p className="text-lg text-gray-600 mt-2">Date: {formatDate(booking.booking_date)}</p>
+                  <p className="text-lg text-gray-600 mt-2">Time: {booking.booking_time}</p>
+                  <p className="text-lg text-gray-600 mt-2">Location: {booking.name}</p>
                   <div className="mt-4 flex justify-between items-center">
                     <button
-                      onClick={() => cancelBooking(booking.id)}
+                      onClick={() => cancelBooking(booking)}
                       className="px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
                     >
                       Cancel Booking
