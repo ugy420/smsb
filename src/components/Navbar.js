@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'; // Adjust the path as necessary
 
-const Navbar = () => {
+const Navbar = ({ setIsLoggedIn }) => {
   return (
     <nav className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-lg p-4 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
@@ -30,7 +30,7 @@ const Navbar = () => {
           <Link to="/account" className="text-white hover:text-blue-200 transition duration-300 font-medium">
             Account
           </Link>
-          <Link to="/" className="text-white hover:text-blue-200 transition duration-300 font-medium">
+          <Link to="/" className="text-white hover:text-blue-200 transition duration-300 font-medium" onClick={ () => setIsLoggedIn(false)}>
             Logout
           </Link>
         </div>
