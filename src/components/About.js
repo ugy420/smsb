@@ -41,7 +41,6 @@ const About = () => {
             {/* Link to About Us section in Home page */}
             <div className="text-center mt-8">
                 <a href="#about" className="text-blue-600 hover:text-blue-800 text-lg">
-                    Back to About Us Section on Home Page
                 </a>
             </div>
         </div>
