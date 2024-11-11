@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import football from '../assets/foot.jpg';
-import Footer from './footer'; 
+import Footer from './footer';
 
 const Events = ({ showFooter = true }) => {
   const [events, setEvents] = useState([]);
@@ -52,17 +53,21 @@ const Events = ({ showFooter = true }) => {
                     alt={event.name}
                     className="h-48 w-full object-cover transition-all duration-500 ease-in-out"
                   />
-                  {/* Add a darker overlay without blur */}
                   <div className="absolute inset-0 bg-black opacity-25 transition-all duration-500 ease-in-out"></div>
                 </div>
-                <div className="relative p-6 z-10"> {/* Ensure text stays on top */}
+                <div className="relative p-6 z-10">
                   <h2 className="text-2xl font-semibold text-gray-800">{event.name}</h2>
                   <p className="text-gray-600 mt-2">
                     <strong>Date:</strong> {event.date}
                     <br />
                     <strong>Time:</strong> {event.time}
                   </p>
-                  <p className="text-gray-600 mt-4">{event.description}</p>
+                  <Link
+                    to={`/event/${event.id}`} // Redirect to event detail page
+                    className="mt-4 text-blue-600 hover:underline"
+                  >
+                    View Details
+                  </Link>
                 </div>
               </div>
             ))}
