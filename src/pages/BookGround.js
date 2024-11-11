@@ -43,6 +43,11 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.date) {
+      alert('Please select a date before submitting the booking.');
+      return; // Prevent form submission if date is not selected
+    }
+
     const payload = {
       userId: parseInt(user, 10),
       groundId: parseInt(groundId, 10),
@@ -70,7 +75,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-800 py-10 px-4">
+    <div className="min-h-screen flex items-center justify-center py-10 px-4 bg-transparent"> {/* Removed background here */}
       <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Book Your Ground</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
