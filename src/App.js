@@ -14,6 +14,7 @@ import Members from './pages/members';
 import Grounds from './pages/grounds';
 import About from './components/About';
 import MyBooking from './pages/myBookings';
+import AEvents from './pages/event';
 import { UserProvider } from './components/userprovider';
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/grounds" element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/mybooking" element={<MyBooking />} />
+        <Route path="/aevents" element={isLoggedIn ? <AEvents /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </Router>
     </UserProvider>

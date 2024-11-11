@@ -13,7 +13,7 @@ const AHome = () => {
 
   const [userCount, setUserCount] = useState(null);
   const [groundCount, setGroundCount] = useState(null);
-  const [bookingCount, setBookingCount] = useState(null);
+  const [eventCount, setEventCount] = useState(null);
 
   useEffect(() => {
     const fetchUserCount = async () => {
@@ -44,30 +44,24 @@ const AHome = () => {
       }
     };
 
-    const fetchBookingCount = async () => {
+    const fetchEventCount = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/getBooksCount');
+        const response = await fetch('http://localhost:3001/api/getEventsCount');
         if (response.ok) {
           const data = await response.json();
-          setBookingCount(data.count);
+          setEventCount(data.count);
         } else {
-          console.error('Failed to fetch booking count');
+          console.error('Failed to fetch event count');
         }
       } catch (error) {
-        console.error('Error fetching booking count:', error);
+        console.error('Error fetching event count:', error);
       }
     };
 
     fetchUserCount();
     fetchGroundCount();
-    fetchBookingCount();
+    fetchEventCount();
   }, []);
-
-  const handleBookingsClick = () => {
-    if (recentRef.current) {
-      recentRef.current.scrollIntoView({ behavior: 'smooth' }); // Scroll to the Recent section
-    }
-  };
 
   return (
     <div className="flex flex-col overflow-y-auto mt-2 p-28">
@@ -95,11 +89,11 @@ const AHome = () => {
           />
           <InfoCard
             icon={bookingsIcon}
-            title="Bookings"
-            number={bookingCount !== null ? bookingCount : 'Loading...'}  // Display the booking count or 'Loading...'
+            title="Event"
+            number={eventCount !== null ? eventCount : 'Loading...'}  // Display the booking count or 'Loading...'
             BgColor="bg-yellow-500"  // Background color for the number
             numberTextColor="text-yellow-500" // Font color for the number
-            onClick={handleBookingsClick}  // Handle bookings click
+            onClick={() => navigate('/aevents')}  // Handle bookings click
           />
         </div>
       </div>
