@@ -163,13 +163,6 @@ const Home = () => {
         </div>
       </footer>
 
-
-
-
-
-
-
-
     </div>
   );
 };

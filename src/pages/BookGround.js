@@ -43,15 +43,26 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if date or time is not selected
+    if (!formData.date) {
+      alert('Please select a date before submitting the booking.');
+      return;
+    }
+
+    if (!formData.time) {
+      alert('Please select a time before submitting the booking.');
+      return;
+    }
+
+    // Check if the selected time is already booked
     const payload = {
-      userId: parseInt(user, 10),
       groundId: parseInt(groundId, 10),
       date: formData.date,
       time: formData.time,
     };
 
     try {
-      const response = await fetch('http://localhost:3001/api/insBooking', {
+      const response = await fetch('http://localhost:3001/api/checkBooking', { // Make sure this API exists
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,10 +70,33 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
         body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+      
+      if (data.isBooked) {
+        alert('Ground is not available at the selected time.');
+        return;
+      }
+
+      // Proceed with booking if no conflicts
+      const bookingPayload = {
+        userId: parseInt(user, 10),
+        groundId: parseInt(groundId, 10),
+        date: formData.date,
+        time: formData.time,
+      };
+
+      const bookingResponse = await fetch('http://localhost:3001/api/insBooking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingPayload),
+      });
+
+      if (bookingResponse.ok) {
         onSuccess();
       } else {
-        console.error('Booking failed:', await response.json());
+        console.error('Booking failed:', await bookingResponse.json());
       }
     } catch (error) {
       console.error('Error making booking request:', error);
@@ -70,7 +104,7 @@ const BookingForm = ({ groundType, date, groundId, onSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-800 py-10 px-4">
+    <div className="flex items-center justify-center py-10 px-4 bg-transparent">
       <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Book Your Ground</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
