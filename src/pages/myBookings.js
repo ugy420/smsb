@@ -40,7 +40,6 @@ const MyBooking = () => {
         booking_date: bookingDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
       };
 
-      console.log(formattedBooking); // Check the new formatted date
       const response = await fetch('http://localhost:3001/api/delBooking', {
         method: 'DELETE',
         headers: {
@@ -50,7 +49,6 @@ const MyBooking = () => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         fetchBookings();
@@ -63,7 +61,6 @@ const MyBooking = () => {
     }
   };
 
-  // Group bookings by date
   const groupBookingsByDate = () => {
     return bookings.reduce((groups, booking) => {
       const date = formatDate(booking.booking_date);
@@ -79,30 +76,30 @@ const MyBooking = () => {
 
   return (
     <div className="flex flex-col bg-gray-100 py-12">
-      <header className="py-16 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white mt-10">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide mb-4">
+      <header className="py-12 text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white mt-10">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-wide mb-4">
           My Booking
         </h1>
       </header>
-      <div className="max-w-6xl mx-auto px-4 flex-grow mt-6">
+      <div className="max-w-4xl mx-auto px-4 flex-grow mt-6">
         {Object.keys(groupedBookings).length > 0 ? (
           Object.keys(groupedBookings).map((date) => (
-            <div key={date} className="mb-8">
-              <h2 className="text-3xl font-semibold text-gray-800 mb-4">{date}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div key={date} className="mb-6">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">{date}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {groupedBookings[date].map((booking) => (
                   <div
                     key={`${booking.ground_id}-${booking.booking_date}-${booking.booking_time}`}
-                    className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200"
+                    className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-4"
                   >
-                    <div className="p-6">
-                      <h3 className="text-2xl font-semibold text-gray-800">{booking.ground_name}</h3>
-                      <p className="text-lg text-gray-600 mt-2">Time: {booking.booking_time}</p>
-                      <p className="text-lg text-gray-600 mt-2">Location: {booking.name}</p>
-                      <div className="mt-4 flex justify-between items-center">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-800">{booking.ground_name}</h3>
+                      <p className="text-md text-gray-600 mt-1">Time: {booking.booking_time}</p>
+                      <p className="text-md text-gray-600 mt-1">Location: {booking.name}</p>
+                      <div className="mt-3 flex justify-end">
                         <button
                           onClick={() => cancelBooking(booking)}
-                          className="px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                          className="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
                         >
                           Cancel Booking
                         </button>
@@ -114,12 +111,12 @@ const MyBooking = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-xl text-gray-600">You have no bookings yet.</p>
+          <p className="text-center text-lg text-gray-600">You have no bookings yet.</p>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
-);
+  );
 };
 
 export default MyBooking;
