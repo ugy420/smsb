@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../components/userprovider'; // Assuming you have user context
+import { useUser } from '../components/userprovider';
+import Footer from './footer';
 
 const MyBooking = () => {
   const { user } = useUser(); // Get user ID from context
@@ -40,7 +41,6 @@ const MyBooking = () => {
       };
       
       console.log(formattedBooking); // Check the new formatted date
-      
       const response = await fetch('http://localhost:3001/api/delBooking', {
         method: 'DELETE',
         headers: {
@@ -62,13 +62,11 @@ const MyBooking = () => {
       console.error('Error canceling booking:', error);
     }
   };
-  
-  
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="flex flex-col min-h-screen bg-gray-50 py-10">
       <h1 className="text-4xl font-bold text-center text-gray-900">My Bookings</h1>
-      <div className="max-w-4xl mx-auto mt-8 px-4">
+      <div className="max-w-4xl mx-auto mt-8 px-4 flex-grow">
         {bookings.length > 0 ? (
           <div className="space-y-6">
             {bookings.map((booking) => (
@@ -94,6 +92,7 @@ const MyBooking = () => {
           <p className="text-center text-xl text-gray-600">No bookings found.</p>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

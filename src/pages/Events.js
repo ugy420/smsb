@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import football from '../assets/foot.jpg';
-import Footer from './footer';  // Import Footer component
+import Footer from './footer'; 
 
 const Events = ({ showFooter = true }) => {
   const [events, setEvents] = useState([]);
