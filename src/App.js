@@ -70,9 +70,15 @@ const App = () => {
             path="/grounds"
             element={isLoggedIn ? <Grounds /> : <Login setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route path="/about-us" element={<About />} />
-          <Route path="/mybooking" element={isLoggedIn ? <MyBooking /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/aevents" element={isLoggedIn ? <AEvents /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route 
+          path="/about-us" element={<About />} 
+          />
+          <Route
+          path="/mybooking" element={isLoggedIn ? <MyBooking /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route
+          path="/aevents" element={isLoggedIn ? <AEvents /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+          />
       </Routes>
       </Router>
     </UserProvider>
