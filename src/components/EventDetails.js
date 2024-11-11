@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Footer from '../pages/footer';
 import footballImage from '../assets/foot.jpg';
 import Sus from '../assets/sus.jpg';
+import rig from '../assets/R.jpg';
+
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -40,7 +42,7 @@ const EventDetails = () => {
       {
         id: '3',
         name: 'Volleyball Championship',
-        image: Sus, // Use a placeholder image
+        image: rig, // Use a placeholder image
         description: 'The biggest volleyball championship of the year.',
         matches: [
           { date: '2024-11-25', time: '3:00 PM', description: 'Match IT vs Civil' },
