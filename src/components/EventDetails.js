@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Footer from '../pages/footer';
 import footballImage from '../assets/foot.jpg';
+import Sus from '../assets/sus.jpg';
+import rig from '../assets/R.jpg';
+
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -26,7 +29,33 @@ const EventDetails = () => {
       {
         id: '2',
         name: 'Volleyball Championship',
-        image: 'https://via.placeholder.com/600x400', // Use a placeholder image
+        image: Sus, // Use a placeholder image
+        description: 'The biggest volleyball championship of the year.',
+        matches: [
+          { date: '2024-11-25', time: '3:00 PM', description: 'Match IT vs Civil' },
+          { date: '2024-11-26', time: '5:00 PM', description: 'Match C vs D' },
+          { date: '2024-11-27', time: '7:00 PM', description: 'Match E vs F' },
+          { date: '2024-11-28', time: '9:00 PM', description: 'Match G vs H' },
+          { date: '2024-11-29', time: '11:00 AM', description: 'Match I vs J' },
+        ],
+      },
+      {
+        id: '3',
+        name: 'Volleyball Championship',
+        image: rig, // Use a placeholder image
+        description: 'The biggest volleyball championship of the year.',
+        matches: [
+          { date: '2024-11-25', time: '3:00 PM', description: 'Match IT vs Civil' },
+          { date: '2024-11-26', time: '5:00 PM', description: 'Match C vs D' },
+          { date: '2024-11-27', time: '7:00 PM', description: 'Match E vs F' },
+          { date: '2024-11-28', time: '9:00 PM', description: 'Match G vs H' },
+          { date: '2024-11-29', time: '11:00 AM', description: 'Match I vs J' },
+        ],
+      },
+      {
+        id: '4',
+        name: 'Volleyball Championship',
+        image: Sus, // Use a placeholder image
         description: 'The biggest volleyball championship of the year.',
         matches: [
           { date: '2024-11-25', time: '3:00 PM', description: 'Match IT vs Civil' },

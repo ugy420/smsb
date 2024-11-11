@@ -4,7 +4,7 @@ import teamMember3 from '../assets/foot.jpg'; // Example image
 
 const About = () => {
     return (
-        <div className="bg-gray-100 min-h-screen py-10 px-4">
+        <div id="about" className="bg-gray-100 min-h-screen py-10 px-4"> {/* Added id="about" here */}
             <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">About Us</h1>
 
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -38,9 +38,10 @@ const About = () => {
                 </p>
             </div>
 
-            {/* Link to About Us section in Home page */}
+            {/* Link to About Us section in Home page (optional, if needed) */}
             <div className="text-center mt-8">
                 <a href="#about" className="text-blue-600 hover:text-blue-800 text-lg">
+                    Go to About Us
                 </a>
             </div>
         </div>
